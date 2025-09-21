@@ -5,12 +5,12 @@ const router = express.Router();
 
 router.post("/shorten", createShortUrl);
 
-router.get("/:shortUrl", redirectToOriginal);
+router.get("/:shortId", redirectToOriginal);
 
-router.get("/stats/:shortUrl", getUrlStats);
+router.get("/stats/:shortId", getUrlStats);
 
 router.get("/", getAllUrls);
 
-router.delete("/:shortUrl", deleteUrl);
+router.delete("/:shortId", deleteUrl);
 
 export default router;

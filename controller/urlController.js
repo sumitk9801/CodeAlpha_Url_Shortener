@@ -2,8 +2,7 @@ import Url from "../models/urlModel.js";
 import shortid from "shortid";
 
 export const createShortUrl = async (req, res) => {
-        const { originalUrl } = req.body;
-        console.log(originalUrl); // for checking purpose
+        const originalUrl = req.body.data;
     try{
         // VALIDATION FOR URL
         if (!originalUrl) {
@@ -38,44 +37,11 @@ export const createShortUrl = async (req, res) => {
         res.status(500).json({ error: "Internal server error" });
     }
 };
-// export const createShortUrl = async (req, res) => {
-//     try {
-//         const { originalUrl } = req.body;
-
-//         // Validate URL
-//         if (!originalUrl) {
-//             return res.status(400).json({ error: "Original URL is required" });
-//         }
-
-//         // Check if URL already exists
-//         const existingUrl = await Url.findOne({ originalUrl });
-//         if (existingUrl) {
-//             return res.json({
-//                 originalUrl: existingUrl.originalUrl,
-//                 shortUrl: existingUrl.shortUrl,
-//                 clicks: existingUrl.clicks
-//             });
-//         }
-
-//         // Create new short URL
-//         const url = new Url({ originalUrl });
-//         await url.save();
-
-//         res.status(201).json({
-//             originalUrl: url.originalUrl,
-//             shortUrl: url.shortUrl,
-//             clicks: url.clicks
-//         });
-//     } catch (error) {
-//         console.error("Error creating short URL:", error);
-//         res.status(500).json({ error: "Internal server error" });
-//     }
-// };
 
 // Redirect to original URL
 export const redirectToOriginal = async (req, res) => {
     try {
-        const { shortId } = req.params;
+        const  {shortId}  = req.params;
 
         const url = await Url.findOne({ shortId });
         if (!url) {
